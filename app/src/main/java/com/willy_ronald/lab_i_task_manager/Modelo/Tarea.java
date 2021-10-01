@@ -1,9 +1,10 @@
 package com.willy_ronald.lab_i_task_manager.Modelo;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
 
-public class Tarea {
+public class Tarea implements Serializable {
 
     private int id;
     private String nombre;
