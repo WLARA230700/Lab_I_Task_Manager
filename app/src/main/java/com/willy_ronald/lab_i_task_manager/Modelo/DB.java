@@ -13,8 +13,8 @@ public class DB extends SQLiteOpenHelper {
 
     private static final String NOMBRE_BD = "LabITaskManager.bd";
     private static final int VERSION_BD = 1;
-    private static final String TABLA_TAREAS = "CREATE TABLE TAREAS (ID INTEGER PRIMARY KEY NOT NULL, " +
-            "NOMBRE TEXT NOT NULL, DESCRIPCION TEXT NOT NULL, FECHA DATE NOT NULL, HORA TIME NOT NULL, CATEGORIA TEXT NOT NULL)";
+    private static final String TABLA_TAREAS = "CREATE TABLE TAREAS (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "NOMBRE TEXT NOT NULL, DESCRIPCION TEXT NOT NULL, FECHA TEXT NOT NULL, HORA TEXT NOT NULL, CATEGORIA TEXT NOT NULL)";
 
     private static final String tbTareas = "TAREAS";
 
@@ -43,11 +43,11 @@ public class DB extends SQLiteOpenHelper {
             String nombre = tarea.getNombre();
             String descripcion = tarea.getDescripcion();
             Date fecha = tarea.getFecha();
-            Time hora = tarea.getHora();
+            String hora = String.valueOf(tarea.getHora());
             String categoria = tarea.getCategoria();
 
             if (db != null){
-                db.execSQL("INSERT INTO USERS TAREAS('"+nombre+"', '"+descripcion+"', '"+fecha+"', '"+hora+"', '"+categoria+"')");
+                db.execSQL("INSERT INTO TAREAS (NOMBRE, DESCRIPCION, FECHA, HORA, CATEGORIA) VALUES ('"+nombre+"', '"+descripcion+"', '"+fecha+"', '"+hora+"', '"+categoria+"')");
                 db.close();
                 return true;
             }

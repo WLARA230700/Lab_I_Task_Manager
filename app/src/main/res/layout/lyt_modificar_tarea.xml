@@ -76,7 +76,7 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName"
+                    android:id="@+id/txtNombre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -95,7 +95,7 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/editTextTime"
+                    android:id="@+id/txtHora"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -115,7 +115,7 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/editTextDate"
+                    android:id="@+id/txtFecha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -135,7 +135,7 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/editTextTextMultiLine"
+                    android:id="@+id/txtDescripcion"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:ems="10"
@@ -162,6 +162,7 @@
         tools:layout_editor_absoluteX="15dp">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/btnModificar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_gravity="bottom"

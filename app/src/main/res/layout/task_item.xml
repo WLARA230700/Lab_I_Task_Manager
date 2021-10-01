@@ -32,6 +32,7 @@
                 android:layout_weight="6"
                 android:background="#E4E4E4"
                 android:paddingTop="10dp"
+                app:cardBackgroundColor="#18768C"
                 app:cardCornerRadius="10dp">
 
                 <TextView

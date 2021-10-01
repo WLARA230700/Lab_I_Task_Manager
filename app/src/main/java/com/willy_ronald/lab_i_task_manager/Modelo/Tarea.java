@@ -22,6 +22,14 @@ public class Tarea implements Serializable {
         this.categoria = categoria;
     }
 
+    public Tarea(String nombre, String descripcion, Date fecha, Time hora, String categoria) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.categoria = categoria;
+    }
+
     public Tarea() {
     }
 

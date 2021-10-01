@@ -29,6 +29,7 @@ public class act_main extends AppCompatActivity {
 
     ArrayAdapter adapter;
     AdapterTaskList adapterTaskList;
+    ArrayList<Tarea> tareas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +57,25 @@ public class act_main extends AppCompatActivity {
 
         listViewTareas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int id, long l) {
-                seleccionarTarea(database, id);
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                seleccionarTarea(database, i);
             }
         });
 
     }//Fin onCreate
 
-    public void seleccionarTarea(DB database, int id){
-        Tarea tarea = new Tarea();
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        final DB database = new DB(getApplicationContext());
+        actualizarLista(database);
+    }
+
+    public void seleccionarTarea(DB database, int i){
+
+        tareas = database.getTareas();
+
+        Tarea tarea = tareas.get(i);
 
         if(tarea != null){
             Intent modificar = new Intent(act_main.this, act_modificar_tarea.class);
@@ -87,9 +98,9 @@ public class act_main extends AppCompatActivity {
     }//Fin asignarCategoriasSpinner
 
     public void actualizarLista(DB database){
-        ArrayList<Tarea> lista = database.getTareas();
+        tareas = database.getTareas();
 
-        if(!lista.isEmpty()){
+        if(!tareas.isEmpty()){
             adapterTaskList = new AdapterTaskList(getApplicationContext(), database.getTareas());
             listViewTareas.setAdapter(adapterTaskList);
         }
