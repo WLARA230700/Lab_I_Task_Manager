@@ -72,7 +72,7 @@ public class DB extends SQLiteOpenHelper {
             tarea.setNombre(cursor.getString(1));
             tarea.setDescripcion(cursor.getString(2));
             tarea.setFecha(new Date(cursor.getLong(3)));
-            tarea.setHora(new Time(cursor.getLong(4)));
+            tarea.setHora(cursor.getString(4));
             tarea.setCategoria(cursor.getString(5));
             list.add(tarea);
             cursor.moveToNext();
@@ -91,7 +91,7 @@ public class DB extends SQLiteOpenHelper {
             String nombre = tarea.getNombre();
             String descripcion = tarea.getDescripcion();
             Date fecha = tarea.getFecha();
-            Time hora = tarea.getHora();
+            String hora = tarea.getHora();
             String categoria = tarea.getCategoria();
 
             if (db != null){
@@ -105,7 +105,7 @@ public class DB extends SQLiteOpenHelper {
                     tareaBD.setNombre(cursor.getString(1));
                     tareaBD.setDescripcion(cursor.getString(2));
                     tareaBD.setFecha(new Date(cursor.getLong(3)));
-                    tareaBD.setHora(new Time(cursor.getLong(4)));
+                    tareaBD.setHora(cursor.getString(4));
                     tareaBD.setCategoria(cursor.getString(5));
                 }
                 if (id == tareaBD.getId()){
@@ -137,7 +137,7 @@ public class DB extends SQLiteOpenHelper {
             tarea.setNombre(cursor.getString(1));
             tarea.setDescripcion(cursor.getString(2));
             tarea.setFecha(new Date(cursor.getLong(3)));
-            tarea.setHora(new Time(cursor.getLong(4)));
+            tarea.setHora(cursor.getString(4));
             tarea.setCategoria(cursor.getString(5));
             list.add(tarea);
             cursor.moveToNext();

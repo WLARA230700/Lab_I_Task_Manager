@@ -10,10 +10,10 @@ public class Tarea implements Serializable {
     private String nombre;
     private String descripcion;
     private Date fecha;
-    private Time hora;
+    private String hora;
     private String categoria;
 
-    public Tarea(int id, String nombre, String descripcion, Date fecha, Time hora, String categoria) {
+    public Tarea(int id, String nombre, String descripcion, Date fecha, String hora, String categoria) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -22,7 +22,7 @@ public class Tarea implements Serializable {
         this.categoria = categoria;
     }
 
-    public Tarea(String nombre, String descripcion, Date fecha, Time hora, String categoria) {
+    public Tarea(String nombre, String descripcion, Date fecha, String hora, String categoria) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fecha = fecha;
@@ -65,11 +65,11 @@ public class Tarea implements Serializable {
         this.fecha = fecha;
     }
 
-    public Time getHora() {
+    public String getHora() {
         return hora;
     }
 
-    public void setHora(Time hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
 
@@ -79,5 +79,17 @@ public class Tarea implements Serializable {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    @Override
+    public String toString() {
+        return "Tarea{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", fecha=" + fecha +
+                ", hora='" + hora + '\'' +
+                ", categoria='" + categoria + '\'' +
+                '}';
     }
 }

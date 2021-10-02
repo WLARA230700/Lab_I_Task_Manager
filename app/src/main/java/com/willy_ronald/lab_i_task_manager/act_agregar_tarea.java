@@ -69,7 +69,7 @@ public class act_agregar_tarea extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    Time hora = Time.valueOf(txtHora.getText().toString());
+                    String hora = txtHora.getText().toString();
 
                     Tarea tarea = new Tarea(txtNombre.getText().toString(), txtDescripcion.getText().toString(),
                             fecha, hora, spinnerCategorias.getSelectedItem().toString());

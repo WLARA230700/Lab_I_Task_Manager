@@ -25,7 +25,8 @@ public class act_main extends AppCompatActivity {
     ListView listViewTareas;
     CardView btnAgregarTarea;
 
-    String[] categorias = {"Trabajo", "Doméstica", "Universidad"};
+    String[] categorias = {"Todos", "Trabajo", "Doméstica", "Universidad"};
+    String categoria = "Todos";
 
     ArrayAdapter adapter;
     AdapterTaskList adapterTaskList;
@@ -62,6 +63,20 @@ public class act_main extends AppCompatActivity {
             }
         });
 
+        spinnerCategorias.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                categoria = spinnerCategorias.getSelectedItem().toString();
+                Toast.makeText(getApplicationContext(), categoria, Toast.LENGTH_LONG).show();
+                actualizarLista(database);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
     }//Fin onCreate
 
     @Override
@@ -73,7 +88,12 @@ public class act_main extends AppCompatActivity {
 
     public void seleccionarTarea(DB database, int i){
 
-        tareas = database.getTareas();
+        if (categoria.equals("Todos")){
+            tareas = database.getTareas();
+        }else{
+            tareas = database.getTareasPorCategoria(categoria);
+        }
+
 
         Tarea tarea = tareas.get(i);
 
@@ -98,11 +118,11 @@ public class act_main extends AppCompatActivity {
     }//Fin asignarCategoriasSpinner
 
     public void actualizarLista(DB database){
-        tareas = database.getTareas();
-
-        if(!tareas.isEmpty()){
-            adapterTaskList = new AdapterTaskList(getApplicationContext(), database.getTareas());
-            listViewTareas.setAdapter(adapterTaskList);
+        tareas = database.getTareasPorCategoria(categoria);
+        if (categoria.equals("Todos")){
+            tareas = database.getTareas();
         }
-    }//Fin actualizarLista
+        adapterTaskList = new AdapterTaskList(getApplicationContext(), tareas);
+        listViewTareas.setAdapter(adapterTaskList);
+    }
 }
