@@ -9,11 +9,11 @@ public class Tarea implements Serializable {
     private int id;
     private String nombre;
     private String descripcion;
-    private Date fecha;
+    private String fecha;
     private String hora;
     private String categoria;
 
-    public Tarea(int id, String nombre, String descripcion, Date fecha, String hora, String categoria) {
+    public Tarea(int id, String nombre, String descripcion, String fecha, String hora, String categoria) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -22,7 +22,7 @@ public class Tarea implements Serializable {
         this.categoria = categoria;
     }
 
-    public Tarea(String nombre, String descripcion, Date fecha, String hora, String categoria) {
+    public Tarea(String nombre, String descripcion, String fecha, String hora, String categoria) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fecha = fecha;
@@ -57,11 +57,11 @@ public class Tarea implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

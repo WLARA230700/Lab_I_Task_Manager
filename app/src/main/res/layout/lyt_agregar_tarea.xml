@@ -92,19 +92,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="10dp"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:weightSum="10">
 
-                <EditText
+                <TextView
                     android:id="@+id/txtHora"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Hora"
-                    android:inputType="time"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:layout_weight="9"
+                    android:padding="10dp"
+                    android:text="Seleccione una hora"
                     android:textColor="#E4E4E4"
-                    android:textColorHint="#E4E4E4" />
+                    android:textSize="18dp" />
+
+                <ImageView
+                    android:id="@+id/btnHora"
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_time" />
 
             </LinearLayout>
 
@@ -112,19 +119,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="10dp"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:weightSum="10">
 
-                <EditText
+                <TextView
                     android:id="@+id/txtFecha"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Fecha"
-                    android:inputType="date"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:layout_weight="9"
+                    android:padding="10dp"
+                    android:text="Seleccione una fecha"
                     android:textColor="#E4E4E4"
-                    android:textColorHint="#E4E4E4" />
+                    android:textSize="18dp" />
+
+                <ImageView
+                    android:id="@+id/btnCalendar"
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_calendar" />
 
             </LinearLayout>
 

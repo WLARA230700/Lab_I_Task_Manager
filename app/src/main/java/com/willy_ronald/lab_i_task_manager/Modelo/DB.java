@@ -42,7 +42,7 @@ public class DB extends SQLiteOpenHelper {
         if (tarea != null){
             String nombre = tarea.getNombre();
             String descripcion = tarea.getDescripcion();
-            Date fecha = tarea.getFecha();
+            String fecha = tarea.getFecha();
             String hora = String.valueOf(tarea.getHora());
             String categoria = tarea.getCategoria();
 
@@ -71,7 +71,7 @@ public class DB extends SQLiteOpenHelper {
             tarea.setId(cursor.getInt(0));
             tarea.setNombre(cursor.getString(1));
             tarea.setDescripcion(cursor.getString(2));
-            tarea.setFecha(new Date(cursor.getLong(3)));
+            tarea.setFecha(cursor.getString(3));
             tarea.setHora(cursor.getString(4));
             tarea.setCategoria(cursor.getString(5));
             list.add(tarea);
@@ -90,7 +90,7 @@ public class DB extends SQLiteOpenHelper {
             int id = tarea.getId();
             String nombre = tarea.getNombre();
             String descripcion = tarea.getDescripcion();
-            Date fecha = tarea.getFecha();
+            String fecha = tarea.getFecha();
             String hora = tarea.getHora();
             String categoria = tarea.getCategoria();
 
@@ -104,7 +104,7 @@ public class DB extends SQLiteOpenHelper {
                     tareaBD.setId(cursor.getInt(0));
                     tareaBD.setNombre(cursor.getString(1));
                     tareaBD.setDescripcion(cursor.getString(2));
-                    tareaBD.setFecha(new Date(cursor.getLong(3)));
+                    tareaBD.setFecha(cursor.getString(3));
                     tareaBD.setHora(cursor.getString(4));
                     tareaBD.setCategoria(cursor.getString(5));
                 }
@@ -136,7 +136,7 @@ public class DB extends SQLiteOpenHelper {
             tarea.setId(cursor.getInt(0));
             tarea.setNombre(cursor.getString(1));
             tarea.setDescripcion(cursor.getString(2));
-            tarea.setFecha(new Date(cursor.getLong(3)));
+            tarea.setFecha(cursor.getString(3));
             tarea.setHora(cursor.getString(4));
             tarea.setCategoria(cursor.getString(5));
             list.add(tarea);

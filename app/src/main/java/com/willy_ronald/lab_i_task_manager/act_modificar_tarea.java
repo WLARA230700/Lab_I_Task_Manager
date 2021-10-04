@@ -2,31 +2,43 @@ package com.willy_ronald.lab_i_task_manager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.DialogFragment;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.willy_ronald.lab_i_task_manager.Modelo.DB;
+import com.willy_ronald.lab_i_task_manager.Modelo.DatePiker;
 import com.willy_ronald.lab_i_task_manager.Modelo.Tarea;
+import com.willy_ronald.lab_i_task_manager.Modelo.TimePiker;
 
 import java.io.CharArrayReader;
 import java.sql.Time;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 
-public class act_modificar_tarea extends AppCompatActivity {
+public class act_modificar_tarea extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     CardView btnBack, btnModificar;
-
-    EditText txtNombre, txtHora, txtFecha, txtDescripcion;
+    TextView txtFecha, txtHora;
+    EditText txtNombre, txtDescripcion;
     Spinner spinnerCategorias;
+    ImageView btnCalendar, btnHora;
 
     String[] categorias = {"Trabajo", "Doméstica", "Universidad"};
     ArrayAdapter adapter;
@@ -45,6 +57,8 @@ public class act_modificar_tarea extends AppCompatActivity {
 
         btnBack = findViewById(R.id.btnBack);
         btnModificar = findViewById(R.id.btnModificar);
+        btnCalendar = findViewById(R.id.btnCalendar);
+        btnHora = findViewById(R.id.btnHora);
 
         spinnerCategorias = findViewById(R.id.spinnerCategorias);
 
@@ -62,8 +76,6 @@ public class act_modificar_tarea extends AppCompatActivity {
         txtDescripcion.setText(tarea.getDescripcion());
         spinnerCategorias.setSelection(adapter.getPosition(tarea.getCategoria()));
 
-        Toast.makeText(getApplicationContext(), tarea.toString(), Toast.LENGTH_LONG).show();
-
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,55 +87,40 @@ public class act_modificar_tarea extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (!txtNombre.getText().equals("") && !txtHora.getText().equals("")
-                        && !txtFecha.getText().equals("") && !txtDescripcion.getText().equals("")){
+                if (!txtNombre.getText().equals("") && !txtHora.getText().equals("Seleccione una hora")
+                        && !txtFecha.getText().equals("Seleccione una fecha") && !txtDescripcion.getText().equals("")){
 
+                    Tarea tareaMOD = new Tarea(id, txtNombre.getText().toString(), txtDescripcion.getText().toString(),
+                            txtFecha.getText().toString(), txtHora.getText().toString(), spinnerCategorias.getSelectedItem().toString());
 
-                    String charHora = txtHora.getText().toString();
-
-                    int h = Integer.parseInt(charHora.charAt(0) + "" + charHora.charAt(1));
-                    int m = Integer.parseInt(charHora.charAt(3) + "" + charHora.charAt(4));
-                    int s = Integer.parseInt(charHora.charAt(6) + "" + charHora.charAt(7));
-
-                    if (charHora.toCharArray().length == 8){
-                        if (charHora.charAt(2) == ':' && charHora.charAt(5) == ':'){
-
-                            if (h < 24 && m <= 59 && s <= 59){
-                                Date fecha = null;
-                                try {
-                                    fecha = new SimpleDateFormat("dd/MM/yyyy").parse(txtFecha.getText().toString());
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-
-                                String hora = txtHora.getText().toString();
-
-                                Tarea tareaMOD = new Tarea(id, txtNombre.getText().toString(), txtDescripcion.getText().toString(),
-                                        fecha, hora, spinnerCategorias.getSelectedItem().toString());
-
-                                database.modificarTarea(tareaMOD);
-
-                                clear();
-                                finish();
-
-                            }else{
-                                Toast.makeText(getApplicationContext(), "Hora inválida", Toast.LENGTH_LONG).show();
-                                txtHora.setText("");
-                            }
-
-                        }else{
-                            Toast.makeText(getApplicationContext(), "Debe cumplir el formato: \nhh:mm:ss", Toast.LENGTH_LONG).show();
-                            txtHora.setText("");
-                        }
-                    }else{
-                        Toast.makeText(getApplicationContext(), "Debe cumplir el formato: \nhh:mm:ss", Toast.LENGTH_LONG).show();
-                        txtHora.setText("");
-                    }
+                    database.modificarTarea(tareaMOD);
+                    Toast.makeText(getApplicationContext(), "Modificada correctamente", Toast.LENGTH_SHORT).show();
+                    clear();
+                    finish();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Complete los datos", Toast.LENGTH_SHORT).show();
                 }
+
             }
 
         });
-    }
+
+        btnCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment datePiker = new DatePiker();
+                datePiker.show(getSupportFragmentManager(), "Date piker");
+            }
+        });
+
+        btnHora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment timePiker = new TimePiker();
+                timePiker.show(getSupportFragmentManager(), "Time piker");
+            }
+        });
+    }//Fin onCreate
 
     public void clear(){
         txtNombre.setText("");
@@ -137,4 +134,25 @@ public class act_modificar_tarea extends AppCompatActivity {
         adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1,categoriasList);
         spinnerCategorias.setAdapter(adapter);
     }//Fin asignarCategoriasSpinner
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+
+        String fechaSeleccionada = DateFormat.getDateInstance(DateFormat.MEDIUM).format(calendar.getTime());
+        txtFecha.setText(fechaSeleccionada);
+    }
+
+    @Override
+    public void onTimeSet(TimePicker timePicker, int hour, int min) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, min);
+
+        String horaSeleccionada = DateFormat.getTimeInstance(DateFormat.MEDIUM).format(calendar.getTime());
+        txtHora.setText(horaSeleccionada);
+    }
 }
