@@ -67,7 +67,7 @@ public class act_main extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 categoria = spinnerCategorias.getSelectedItem().toString();
-                Toast.makeText(getApplicationContext(), categoria, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), categoria, Toast.LENGTH_LONG).show();
                 actualizarLista(database);
             }
 
